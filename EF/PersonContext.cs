@@ -15,9 +15,13 @@ namespace EF
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {
             dbContextOptionsBuilder.UseSqlite("Data Source=DBLud.db");
-
         }
-
+        /// <summary>
+        /// Commands for new DB Build Process:
+        /// Add-Migration MigrationName V.1.0.X(+1) -Project entiframe
+        /// Update-Database -Project entiframe
+        /// </summary>
+        /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<FluentApiTable>().HasKey(a => a.Identifier);
@@ -36,8 +40,6 @@ namespace EF
             mySensors.Property(b => b.SensorsId).HasMaxLength(30);
             mySensors.Property(b => b.Name).HasMaxLength(30);
             //var SuchenachSensors2 = mySensors.HasOne(b => b.Name).GetType().Name.CompareTo("Sensor2");
-
-
             modelBuilder.Entity<Logins>().Property(a => a.Identifier).HasColumnType("Int");
         }
 
@@ -61,18 +63,14 @@ namespace EF
 
         [Required]
         public string SensorsId { get; set; }   
-
     }
 
     public class Sensors
     {
-        
         public int SensorsId { get; set; }   
         public string Name { get; set; }
         public string Room { get; set; }
         public int RoomNr { get; set; }
-
-
     }
 
     public class Logins
@@ -80,9 +78,7 @@ namespace EF
         [Key]
         public int Identifier { get; set; }
         public string LoginName { get; set; }
-
         public string Password { get; set; }
-
     }
 
 }
