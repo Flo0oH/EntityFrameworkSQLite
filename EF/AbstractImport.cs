@@ -1,4 +1,6 @@
-﻿namespace EF
+﻿using System.Collections.Generic;
+
+namespace EF
 {
     abstract class AbstractImport
     {
@@ -10,6 +12,7 @@
             Sensors,
             TempSensors
         }
-        public abstract void DoImport(Table mytable);
+        public abstract void Import(Table mytable, int loginid);
+        public abstract List<int> ReadingIndex(Table mytable);
     }
 }

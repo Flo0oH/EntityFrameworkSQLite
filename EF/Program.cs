@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace EF
 {
@@ -8,13 +9,19 @@ namespace EF
         {
             Console.WriteLine("Database CSV Converter Importer V_0.1");
             //Login registrieren
-            TableInsert mytableinsert = new TableInsert();
-            mytableinsert.DoImport(AbstractImport.Table.Logins);
-            mytableinsert.DoImport(AbstractImport.Table.Sensors);
-            mytableinsert.DoImport(AbstractImport.Table.TempSensors);
+            TableInsert mytablereading = new TableInsert();
+            var loginids = mytablereading.ReadingIndex(AbstractImport.Table.Logins);
+            var loginid = loginids.Count()+1;
 
-            MyNewClass myclass = new MyNewClass();
+            for (int i = 0; i < 3; i++)
+            {
+                TableInsert mytableinsert = new TableInsert();
+                mytableinsert.Import(AbstractImport.Table.Logins, loginid);
+                mytableinsert.Import(AbstractImport.Table.Sensors, loginid);
+                mytableinsert.Import(AbstractImport.Table.TempSensors, loginid);
+                loginid++;
+            }
+            CsvReader myclass = new CsvReader();
         }
-
     }
 }
