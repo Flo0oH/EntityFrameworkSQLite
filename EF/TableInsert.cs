@@ -5,8 +5,12 @@ namespace EF
 {
     internal class TableInsert : AbstractImport
     {
-        public override string DBName => throw new System.NotImplementedException();
-
+        /// <summary>
+        /// Methode zum schreiben in eine Datenbank für speziel die Tabelen die im Enum mytable übergeben werden. Bitte entsprechend nachpfelchen
+        /// Kein Rückgabetyp notwendig -> Consolenausgabe wenn es geklappt hat.
+        /// </summary>
+        /// <param name="mytable"></param>
+        /// <param name="loginid"></param>
         public override void Import(Table mytable, int loginid)
         {
             TableInsert mytableinsert = new TableInsert();
@@ -46,6 +50,13 @@ namespace EF
                 }
             }
         }
+
+        /// <summary>
+        /// Methode zum lesen von Daten in einer Datenbank Tabelle die durch das Enum festgelegt wird. 
+        /// Rückgabetype ist eine List<Int>()</Int>
+        /// </summary>
+        /// <param name="mytable"></param>
+        /// <returns></returns>
         public override List<int> ReadingIndex(Table mytable)
         {
             TableInsert mytableinsert = new TableInsert();
@@ -54,11 +65,13 @@ namespace EF
             using (var database = new TempContext())
             {
                 var logins = new List<int>();
+                var sensors = new List<int>();
+                var tempSensors = new List<int>();
                 switch (mytable)
                 {
                     case Table.Logins:
                         {
-                            Console.WriteLine("Inserting in Logins");
+                            Console.WriteLine("Reading index in Logins");
                             foreach (var Logins in database.Logins)
                             {
                                 logins.Add(Logins.Identifier);
@@ -69,15 +82,21 @@ namespace EF
                         return logins;
                     case Table.TempSensors:
                         {
-                            Console.WriteLine("Inserting in Sensors");
-                 
+                            Console.WriteLine("Reading index in Sensors");
+                            foreach (var sensor in database.Sensors)
+                            {
+                                sensors.Add(sensor.SensorsId);
+                            }
                             Console.WriteLine("Done");
                         }
                         return null;
                     case Table.Sensors:
                         {
-                            Console.WriteLine("Inserting in TempSensorData");
-                  
+                            Console.WriteLine("Reading index in TempSensorData");
+                            foreach (var tempsensor in database.TempSensors)
+                            {
+                                tempSensors.Add(tempsensor.Id);
+                            }
                             Console.WriteLine("Done");
                         }
                         return null;

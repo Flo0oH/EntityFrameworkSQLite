@@ -4,8 +4,11 @@ namespace EF
 {
     abstract class AbstractImport
     {
-        public abstract string DBName { get; }
-
+       
+        /// <summary>
+        /// Abstracte Klasse um die Grundfunktionen der Tabellen die möglicherweise gelesen und geschrieben werden zu bestimmen.
+        /// Bitte immer nachpflegen wenn das Datenbankmodell geändert wird.
+        /// </summary>
         public enum Table
         {
             Logins,
