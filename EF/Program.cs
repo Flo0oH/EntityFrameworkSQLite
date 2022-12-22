@@ -9,7 +9,7 @@ namespace EF
 
         static void Main(string[] args)
         {
-            Console.WriteLine("Database CSV Converter Importer V_0.1");
+            Console.WriteLine("Database CSV Converter Importer V_0.5.0");
             //Login registrieren
             TableInsert mytablereading = new TableInsert();
             var loginids = mytablereading.ReadingIndex(AbstractImport.Table.Logins);
@@ -19,9 +19,14 @@ namespace EF
             for (int i = 0; i < 3; i++)
             {
                 TableInsert mytableinsert = new TableInsert();
-                mytableinsert.Import(AbstractImport.Table.Logins, loginid);
-                mytableinsert.Import(AbstractImport.Table.Sensors, loginid);
-                mytableinsert.Import(AbstractImport.Table.TempSensors, loginid);
+                loginids = mytablereading.ReadingIndex(AbstractImport.Table.Logins);
+                foreach (var tempsensor in mycsvdata)
+                {
+                    mytableinsert.Import(AbstractImport.Table.Logins, loginid, tempsensor);
+                    mytableinsert.Import(AbstractImport.Table.Sensors, loginid, tempsensor);
+                    mytableinsert.Import(AbstractImport.Table.TempSensors, loginid, tempsensor);
+                    
+                }
                 loginid++;
             }
             CsvReader myclass = new CsvReader();

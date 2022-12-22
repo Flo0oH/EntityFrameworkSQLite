@@ -11,11 +11,12 @@ namespace EF
         /// </summary>
         /// <param name="mytable"></param>
         /// <param name="loginid"></param>
-        public override void Import(Table mytable, int loginid)
+        public override void Import(Table mytable, int loginid, IEnumerable<string[]> importdata)
         {
             TableInsert mytableinsert = new TableInsert();
             Console.WriteLine("Inserting in " + mytable.ToString());
             var loginNow = "AutomaticImportV_0.1_" + DateTime.Now.ToString();
+            
             using (var database = new TempContext())
             {
                 switch (mytable)
@@ -39,9 +40,15 @@ namespace EF
                     case Table.Sensors:
                         {
                             Console.WriteLine("Inserting in TempSensorData");
-                            database.Add(new TempSensor() { Name = "Sensor_" + loginid.ToString(), Temperature = DateTime.Now.Second, Temperaturedate = DateTime.Now.ToString(), Sensornr = 1, Id = loginid, SensorsId=loginid } );
-                            database.SaveChanges();
-                            Console.WriteLine("Done");
+                            foreach (var datablock in importdata)
+                            {
+                                database.Add(new TempSensor() { Name = "Sensor_1_test", Temperature = float.Parse(datablock[1]), Temperaturedate = datablock[0].ToString(), Sensornr = 1, Id = loginid, SensorsId = 1 });
+                                database.SaveChanges();
+                                Console.WriteLine("Sensor_" + loginid.ToString());
+                                loginid++;
+                            }
+                   
+                           Console.WriteLine("Done");
                         }
                         break;
 

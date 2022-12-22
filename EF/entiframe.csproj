@@ -15,6 +15,18 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="DBLud_Temp_7.db">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="dependencies\csvvssqlitePNG.PNG">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dependencies\deletetables.sql">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="dependencies\initial.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="dependencies\LGT_2019-08-17.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

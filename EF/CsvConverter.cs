@@ -20,6 +20,7 @@ namespace EF
             {
                 string str = Environment.CurrentDirectory;
                 string csvtest = str + @"\dependencies\LGT_2019-08-17.csv";
+                string csvtest2 = str + @"\dependencies\initial.csv";
                 List<string> allpaths = new List<string>();
                 allpaths.Add(csvtest);
                 allpaths.Add(csvtest);
@@ -38,6 +39,7 @@ namespace EF
                         var componentName = rowcsv[2];
                     }
                     allContents[index] = csvdata;
+
                 }
                 return allContents;
             }
