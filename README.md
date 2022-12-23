@@ -1,5 +1,37 @@
-# Import Data from a Templogger CSV File into an SQLite DB with C# Entity Framework. 
-## Create SQLite TB with Tables
+### Import Data from a Templogger CSV File into an SQLite DB with C# Entity Framework. 
+
+### 1) Prepare & How to use it?
+  Install Extensions & NuGet: 
+ 
+      - SQLite/SQL Server Compact Toolbox
+      - Microsoft.EntityFrameworkCore.Sqlite V3.1.3
+      - Microsoft.EntityFrameworkCore.Tools V3.1.3
+
+  Run it in VisualStudio 22 V 17.26
+
+    You need to setup your solution with two config files (dependencies/temp.csv and entiframe.exe)
+
+### 2) How to migrate & update SQlite Db with EntityFramework
+  Create new DB Build Process
+    
+      Add-Migration MigrationNameV1.0.x -Project entiframe
+
+  Update DB after changes in ER-Modell
+
+      Update-Database -Project entiframe
+
+### 3) SQL Options
+
+  Clear all Tables
+
+     DELETE FROM [Logins];
+     DELETE FROM[Sensors];
+     DELETE FROM[TempSensors];
+
+    
+
+Create SQLite TB with Tables
+  
       SELECT 1;
       PRAGMA foreign_keys=on;
       BEGIN TRANSACTION;
@@ -44,11 +76,9 @@
               from Sensors sensors join TempSensors sensor on sensors.SensorsId = sensor.SensorsId;
       COMMIT;
 
-## CREATE VIEW MyTempLogs
+#### CREATE VIEW MyTempLogs
       CREATE VIEW MyTempLogs AS select login.LoginName, sensor.Name, sensor.Room
       from Logins login join TempSensors sensor on sensor.SensorsId = login.Identifier;
-## CREATE VIEW MyTempSensor 
+#### CREATE VIEW MyTempSensor 
       CREATE VIEW MyTempSensorAS select sensors.Name, sensor.Temperature
    	from Sensors sensors join TempSensors sensor on sensors.SensorsId = sensor.SensorsId;
-      
-      
